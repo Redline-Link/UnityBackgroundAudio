@@ -14,9 +14,10 @@ import AVFoundation
     private static var _players = [Int: AudioInstance]();
     
     @objc public static func initialize(_ instanceId: Int) {
+        let avOptions:AVAudioSession.CategoryOptions = []
         do{
             let audioSession = AVAudioSession.sharedInstance();
-            try audioSession.setCategory(AVAudioSession.Category.playback);
+            try audioSession.setCategory(AVAudioSession.Category.playback, options: avOptions);
             try audioSession.setActive(true);
         } catch {
             print (error);
