@@ -73,7 +73,12 @@ public class BackgroundAudioService extends Service {
                     // Stop service pending intent
                     Intent stopServiceIntent = new Intent(this, BackgroundAudioService.class);
                     stopServiceIntent.setAction(ACTION_STOP_SERVICE);
-                    PendingIntent pendingIntent = PendingIntent.getService(this, 0, stopServiceIntent, 0);
+                    PendingIntent pendingIntent;
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+                        pendingIntent = PendingIntent.getService(this, 0, stopServiceIntent, PendingIntent.FLAG_MUTABLE);
+                    } else {
+                        pendingIntent = PendingIntent.getService(this, 0, stopServiceIntent, 0);
+                    }
 
                     int icon = intent.getIntExtra(EXTRA_ICON, 0);
 
